@@ -4,8 +4,8 @@ const auth = require('../controller/authController')
 const tutorRouter = express.Router()
 
 
-tutorRouter.use(auth.isAuthenticated)
-tutorRouter.use(auth.isLoggedIn)
+// tutorRouter.use(auth.isAuthenticated)
+// tutorRouter.use(auth.isLoggedIn)
 
 tutorRouter.post('/sign_Up', tutorController.signUp)
 tutorRouter.post('/login', tutorController.Login)

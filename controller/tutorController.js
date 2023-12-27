@@ -80,19 +80,21 @@ const logout = (req, res) => {
 };
 const sendEmail = async (req, res, next) => {
     try {
-        const emails = req.body.emails; 
-        const emailHeading = req.body.emailHead;
+        const emails = JSON.parse(req.body.emails); 
+        const emailHeading = req.body.emailHead
         const emailContent = req.body.emailBody;
 
         if (!emails || !Array.isArray(emails) || emails.length === 0) {
-            return res.status(400).json({ result: "error", message: "Invalid or empty email list" });
+         res.status(400).json({ result: "error", message: "Invalid or empty email list" });
         }
+
+       
 
         await emailSender(emailContent, emailHeading, emails);
         res.status(200).json({ result: "success", message: "Email was sent successfully" });
     } catch (error) {
         console.error('Error sending email:', error);
-        next(new appError('500', 'Something went really wrong. Try again later'));
+        next(new appError( error,500));
     }
 };
 

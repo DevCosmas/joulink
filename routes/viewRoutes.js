@@ -15,7 +15,7 @@ router.get('/signUp', (req, res) => {
 router.get('/login', (req, res) => {
     res.status(200).render('login')
 })
-
+ 
 
 // router.use(authController.isLoggedIn)
 
@@ -24,6 +24,10 @@ router.get('/overview', (req, res) => {
 })
 router.get('/sendEmail',(req,res)=>{
     res.status(200).render('sendEmail')
+
+})
+router.get('/Email',(req,res)=>{
+    res.status(200).render('e mail')
 
 })
 // router.get('/searchQuery', viewController.queryTask)
