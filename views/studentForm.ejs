@@ -12,68 +12,66 @@
 
 <body class="form--body">
     <div class="student--form-wrapper">
-        <form action="" class="studentForm">
-            <h1 class="form--h1">student form</h1>
+        <form action="/submit-form" method="POST" class="studentForm">
+            <h1 class="form--h1">Student Form</h1>
             <div class="form--wrapper">
-                <label for="firstname">firstname
-
-                    <input type="text" class="student--input ">
+                <label for="firstname">Firstname
+                    <input type="text" class="student--input" id="firstname">
                 </label>
-                <label for="firstname">lastname
-
-                    <input type="text" class="student--input ">
+                <label for="lastname">Lastname
+                    <input type="text" class="student--input" id="lastname">
                 </label>
-
-                <label for="lesson time"> gender
-                    <!-- <h2 class="opt--heading">lesson time</h2> -->
-                    <select name="lessonTime" id="" class="student--select">
-                        <option value="web development"> male</option>
-                        <option value="web development"> female</option>
-                    </select>
+                <label for="DOB">DOB
+                    <input type="date" class="student--input" id="DOB" placeholder="Date of Birth">
                 </label>
-                <label for="date of birth"> DOB
-                    <input type="date" class="student--input " placeholder="date of birth">
-                </label>
-                <label for="state of origin"> state of origin
-                    <input type="text" class="student--input ">
-                </label>
-                <label for="home address"> home address
-                    <input type="text" class="student--input">
-                </label>
-                <label for="course"> course
-                    <!-- <h2 class="opt--heading">courser</h2> -->
-                    <select name="course" id="" class="student--select">
-                        <option value="web development"> web development</option>
-                        <option value="web development"> graphic design</option>
-                        <option value="web development"> digital marketing</option>
-                        <option value="web development"> microsoft office</option>
-                    </select>
-                </label>
-                <label for="lesson time"> lessonTime
-                    <!-- <h2 class="opt--heading">lesson time</h2> -->
-                    <select name="lessonTime" id="" class="student--select">
-                        <option value="web development"> bi-weekly</option>
-                        <option value="web development"> once a week</option>
-                    </select>
-                </label>
-                <label class="opt--container" for="payment method">
-                    payment method
-                    <!-- <h2 class="opt--heading">payment method</h2> -->
-                    <select name="paymentMethod" id="" class="student--select">
-                        <option value="web development"> cash</option>
-                        <option value="web development"> USSD</option>
-                        <option value="web development"> POS</option>
+                <label for="gender">Gender
+                    <select name="gender" id="gender" class="student--select">
+                        <option disabled selected>Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
                     </select>
                 </label>
 
-                <label for="home address"> choose a photo
+                <label for="stateOfOrigin"> state of origin
+                    <input type="text" class="student--input" id="stateOfOrigin">
+                </label>
+                <label for="homeAddress">Home Address
+                    <input type="text" class="student--input" id="homeAddress">
+                </label>
+                <label for="course">Course
+                    <select name="course" id="course" class="student--select">
+                        <option disabled selected>Select Course</option>
+                        <option>Web Development</option>
+                        <option>Graphic Design</option>
+                        <option>Digital Marketing</option>
+                        <option>Microsoft Office</option>
+                    </select>
+                </label>
+                <label for="lessonTime">Lesson Time
+                    <select name="lessonTime" id="lessonTime" class="student--select">
+                        <option disabled selected>Select Lesson Time</option>
+                        <option>Bi-weekly</option>
+                        <option>Once a Week</option>
+                    </select>
+                </label>
+                <label class="opt--container" for="paymentMethod">Payment Method
+                    <select name="paymentMethod" id="paymentMethod" class="student--select">
+                        <option disabled selected>Select Payment Method</option>
+                        <option>Cash</option>
+                        <option>USSD</option>
+                        <option>POS</option>
+                    </select>
+                </label>
+                <label for="photo">Choose a Photo
                     <input type="file" accept="image/*" id="photo" name="photo" class="student--input">
                 </label>
+                <label for="email">Email
+                    <input type="email" class="student--input email" placeholder="Your Email">
+                </label>
             </div>
-
-
-            <button class="submit--btn">submit</button>
+            <button class="submit--btn" type="submit">Submit</button>
         </form>
+        
         <footer class="intro--footer">
             <p class="intro--footer-p">&copy; 2023 All right reserved. Joulinks digital hub<a class="footer--link"> ||
                     DevCosmas</a></p>
@@ -82,6 +80,7 @@
     <!-- <footer>
         p.footer
     </footer> -->
+    <script src="/js/studentSignup.js"></script>
 </body>
 
 </html>

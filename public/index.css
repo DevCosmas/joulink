@@ -554,7 +554,11 @@ color: orangered;
     font-weight: 600;
     border-radius: 2px 2px;
     position: relative;
+    display: inline-block;
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
 }
 
 .hero-btn::before {

@@ -1,3 +1,4 @@
+// import { signUpFn } from "./studentSignup"
 const hamburgerIcon= document.querySelector('.harmbuger')
 const body= document.getElementsByTagName('body')
 const stickIcon=document.querySelector('#sticky--icon')
@@ -9,7 +10,7 @@ const tutorNavigation=document.querySelector('.tutor--nav')
 const answerEl= document.querySelector('.answer')
 const activeElements= document.querySelectorAll('.Q-wrapper')
 
-
+// const studentForm= document.querySelector('.studentForm')
 
 activeElements.forEach(el=>{
   el.addEventListener('click', event=>{
@@ -55,3 +56,24 @@ stickCancel.addEventListener('click', function(){
         
         
     })
+
+//     studentForm.addEventListener('submit',(e)=>{
+//       e.preventDefault()
+
+//       const firstName= document.querySelector('.firstname')
+//       const lastName= document.querySelector('.lastname')
+//       const gender= document.querySelector('.gender')
+//       const DOB= document.querySelector('.DOB ')
+//       const  stateOfOrigin= document.querySelector('.stateOfOrigin')
+//       const  homeAddress= document.querySelector('.homeAdress')
+//       const  course= document.querySelector('.course')
+//       const  lessonTime= document.querySelector('.lessonTime')
+//       const  paymentMethod= document.querySelector('.paymentMethod')
+//       const  photo= document.querySelector('.photo')
+//       const  email= document.querySelector('.email')
+
+// signUpFn(firstName,lastName,gender,DOB, stateOfOrigin,homeAddress,course,lessonTime, paymentMethod,
+//   photo,email)
+
+//   studentForm.reset()
+//  })

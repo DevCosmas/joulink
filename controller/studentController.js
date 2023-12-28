@@ -34,7 +34,6 @@ const findStudentEmail = async (req, res, next) => {
     }
 };
 
-module.exports = { findStudentEmail };
 
 module.exports = {
     studentForm,

@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Simple Transactional Email</title>
+    <title>Mail system</title>
     <style media="all" type="text/css">
     /* -------------------------------------
     GLOBAL RESETS
@@ -78,7 +78,8 @@
     
     .footer {
       clear: both;
-      padding-top: 24px;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
       text-align: center;
       width: 100%;
     }
@@ -328,12 +329,11 @@
                       </tr>
                     </tbody>
                   </table>
-                  <p><%= message%></p>
+                  <p class="message"><%= message%></p>
                
                 </td>
               </tr>
 
-              <!-- END MAIN CONTENT AREA -->
               </table>
 
             <!-- START FOOTER -->

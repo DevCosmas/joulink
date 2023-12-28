@@ -26,6 +26,11 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
+// app.get('/allStudent', async (req,res,next)=>{
+//     const students= await studentModel.find({})
+//     if(!students && student.length===0)next(new appError('no student data was found', 404))
+//     res.status(200).json({students})
+// })
 app.use('/api', studentRoute)
 app.use('/api', tutorRoute)
 app.use('/', viewRoute)

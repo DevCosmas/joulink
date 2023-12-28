@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt')
 const tutorSchema = new schema({
     firstname: {
         type: String,
-        required: [true, 'a student must have a name']
+        required: [true, 'a tutor must have a name']
     },
     lastname: {
         type: String,
-        required: [true, 'a student must have a name']
+        required: [true, 'a tutor must have a name']
     },
     email: {
         type: String,

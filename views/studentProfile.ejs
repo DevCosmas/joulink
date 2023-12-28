@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joulinks digital hub</title>
-    <link rel="stylesheet" href="/public/index.css">
-    <link rel="stylesheet" href="/public/mediaQ.css">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/mediaQ.css">
     <style>
         /* Add any additional styling here */
         table {
@@ -27,6 +27,9 @@
             background-color:orangered;
             color: #fff;
         }
+        .student--detail{
+            padding-bottom: 5rem;
+        }
     </style>
 </head>
 
@@ -34,7 +37,11 @@
 
     <h1 class="student--cardh1">student card</h1>
     <div class="student--card">
-        <img src="/public/img/powerpoint.avif" alt="" class="student--profile--pics">
+        
+   <div class="studentImg-cover">
+    <img src="/img/<%= student.photo %>" alt="Student Profile" class="student--profile--pics">
+   </div>
+
         <div class="student--detail">
             <table>
                 <tr>
@@ -43,31 +50,42 @@
                 </tr>
                 <tr>
                     <td>First Name</td>
-                    <td>cosmas</td>
+                    <td><%= student.firstname %></td>
                 </tr>
                 <tr>
                     <td>Last Name</td>
-                    <td>chibuike</td>
+                    <td><%= student.lastname %></td>
                 </tr>
                 <tr>
                     <td>Date of Birth</td>
-                    <td>12/1/2002</td>
+                 
+<td><%= student.DOB.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
+
+
                 </tr>
                 <tr>
                     <td>State of Origin</td>
-                    <td>enugu</td>
+                    <td><%= student.stateOfOrigin%></td>
                 </tr>
                 <tr>
                     <td>Home Address</td>
-                    <td>enugu</td>
+                    <td><%= student.homeAddress%></td>
                 </tr>
                 <tr>
                     <td>Course</td>
-                    <td>web development</td>
+                    <td><%= student.course%></td>
                 </tr>
                 <tr>
                     <td>Lesson Time</td>
-                    <td>once a week</td>
+                    <td><%= student.lessonTime %></td>
+                </tr>
+                <tr>
+                    <td>payment Method</td>
+                    <td><%= student.paymentMethod %></td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td><%= student.email%></td>
                 </tr>
             </table>
         </div>

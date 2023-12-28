@@ -15,10 +15,10 @@
     <header class="landing--pageTwo">
         <nav class="tutor--nav">
             <span class="tutor--img">
-                <img src="/public/img/j-coding.avif" alt="" class="tutor-img">
+                <img src="/img/j-bgr.avif" alt="" class="tutor-img">
                 <p class="tutorname">Joulinks digital hub</p>
             </span>
-            <a href="#" class="nav--link">send email</a>
+            <a href="/sendEmail" class="nav--link">send email</a>
             <a href="#" class="nav--link">logout</a>
 
 
@@ -34,7 +34,7 @@
             stroke="currentColor" class=" cancel " id="stick-cancel">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-            <li class="fixednav-list"><a href="#" class=" href">send email</a></li>
+            <li class="fixednav-list"><a href="/sendEmail" class=" href">send email</a></li>
             <li class="fixednav-list"><a href="#" class=" href">logout</a></li>
       </ul>
         <!-- <div class="nav--highlight">
@@ -56,59 +56,16 @@
 
 
         <section>
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
-
-
-            <div class="student--profile--container">
-                <img src="/public/img/j-press.webp" alt="" class="student--profile">
-                <a href="" class="student--name">ugwucosmas chibuike</a>
-            </div>
+            <% students.forEach(student => { %>
+                <div class="student--profile--container">
+                    <img src="<%= student.photo %>" alt="Student Photo" class="student--profile">
+                    <a  href="/studentProfile/<%= student._id %> " class="student--name"> <%= student.firstname %> <%= student.lastname %></a>
+                </div>
+            <% }); %>
         </section>
     </main>
    
-    <script src="/public/js/index.js"></script>
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
