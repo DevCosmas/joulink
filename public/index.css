@@ -17,7 +17,7 @@ main{
 
 .form--body {
 
-    background-image: url('./img/j-coding.avif');
+    background-image: url('/img/j-coding.avif');
 
     background-position: center;
     background-size: cover;
@@ -506,7 +506,7 @@ color: orangered;
 }
 
 .hero-section{
-    background-image: url(./img/j-bgr.avif);
+    background-image: url('/img/j-bgr.avif');
     background-size: cover;
     background-repeat:no-repeat ;
     background-position: center;
@@ -753,7 +753,7 @@ padding-bottom: 5rem;
 }
 
 .overview-footer{
-    background-image: url(./img/j-coding.avif);
+    background-image: url('/img/j-coding.avif');
     background-repeat: no-repeat;
     background-size: cover;
     width: 100vw;

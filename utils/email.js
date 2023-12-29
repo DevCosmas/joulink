@@ -5,7 +5,7 @@ const ejs = require('ejs');
 const path = require('path');
 const { appError } = require('./appError');
 
-const emailSender = async (message, heading, users, next) => {
+const emailSender = async (message, heading, users) => {
   try {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -38,7 +38,7 @@ const emailSender = async (message, heading, users, next) => {
         await transporter.sendMail(mailOptions);
         console.log('Email sent to:', toAddress);
       } catch (error) {
-        next(new appError(error, 500));
+        new appError(error, 500);
    
         
       }
@@ -46,7 +46,7 @@ const emailSender = async (message, heading, users, next) => {
 
     return 'All emails sent successfully';
   } catch (error) {
-    next(new appError(error, 500));
+    new appError(error, 500)
     }
 };
 
