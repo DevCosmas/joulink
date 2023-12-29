@@ -1,9 +1,44 @@
 const {studentModel} = require('./../model/studentSchema')
 const {appError} = require('.././utils/appError')
 const { jwtToken } = require('.././utils/jwt')
+const multer=require('multer')
+const sharp= require('sharp')
+
+const multerStorage= multer.diskStorage({
+
+    destination:(req,file,cb)=>{
+        cb(null,'public/img/users')
+
+    },
+    filename:(req,file,cb)=>{
+        const ext=file.mimetype.split('/')[1]
+        cb(null,`student-${Date.now()}.${ext}`)
+
+    }
+})
+
+// const multerStorage=multer.memoryStorage()
+
+const multerFilter=(req,file,cb)=>{
+    if(file.mimetype.startsWith('image')){
+        cb(null,true)
+    }
+    else{
+        cb(new appError('Not an image. Please Uploaad an image', 400), false)
+    }
+}
+const upload= multer({
+    storage:multerStorage,
+    fileFilter:multerFilter
+})
+
+
+const uploadStudentPhoto= upload.single('photo')
 const studentForm = async (req, res, next) => {
     try {
+        console.log(req.file)
         const formData = req.body
+        if(req.file)formData.photo=req.file.filename
         const newStudent = await studentModel.create(formData)
         const token = await jwtToken(newStudent._id)
         res.status(201).json({ result: 'Success', message: 'a new student has been admitted', token, newStudent })
@@ -73,5 +108,7 @@ const findAllStudent = async (req, res, next) => {
 module.exports = {
     studentForm,
     findStudentEmail,
-    findAllStudent
+    findAllStudent,
+    uploadStudentPhoto,
+  
 }

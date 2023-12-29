@@ -17,72 +17,38 @@
 //     }
 // };
 
-const studentForm= document.querySelector('.studentForm')
 
+document.getElementById('studentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-const signUpFn = async ( 
-    firstname,
-    lastname,
-   password,
-   confirmPassword,
-email,
-photo,) => {
+    const studentForm = new FormData();
+
+    studentForm.append('firstname', document.getElementById('firstname').value);
+    studentForm.append('lastname', document.getElementById('lastname').value);
+    studentForm.append('password', document.getElementById('password').value);
+    studentForm.append('confirmPassword',document.getElementById('confirmPassword').value);
+    studentForm.append('photo', document.getElementById('photo').files[0]);
+    studentForm.append('email', document.querySelector('#email').value);
+
     try {
-       
-        const signUpDetails = {
-            firstname,
-            lastname,
-           password,
-           confirmPassword,
-        email,
-        photo,
-        };
         const res = await fetch('/api/sign_Up', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(signUpDetails),
+            body: studentForm,
         });
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data)
+            console.log(data);
             // showAlert('success', 'Your application was received successfully');
         } else {
             const errorResponse = await res.json();
-            console.log(errorResponse)
+            console.log(errorResponse);
             // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
         }
     } catch (err) {
         // showAlert('fail', 'An unexpected error occurred. Please try again.');
-        console.log(error)
+        console.error(err);
     }
-};
 
-studentForm.addEventListener('submit',(e)=>{
-    e.preventDefault()
-
-
-    const firstName = document.getElementById('firstname').value;
-const lastName = document.getElementById('lastname').value;
-const password = document.getElementById('password').value;
-const confirmPassword = document.getElementById('confirmPassword').value;
-const photo = document.getElementById('photo').value;
-const email = document.querySelector('#email').value;
-
-signUpFn(
-    firstName,
-    lastName,
-   password,
-   confirmPassword,
-email,
-photo,
-)
-
-studentForm.reset()
-})
-
-
-// export {signUpFn}
- 
+    document.getElementById('studentForm').reset();
+});

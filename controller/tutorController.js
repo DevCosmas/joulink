@@ -8,6 +8,7 @@ const {emailSender}= require('./../utils/email')
 async function signUp(req, res, next) {
     try {
         const body = req.body
+        if(req.file)body.photo=req.file.filename
         const newUser = await tutorModel.create(body)
         if (!newUser) {
             return next(new appError('fill in the correct details pls', 400))

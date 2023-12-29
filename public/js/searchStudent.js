@@ -22,7 +22,7 @@ function displayStudentProfiles(students) {
         profileContainer.classList.add('student--profile--container');
 
         const img = document.createElement('img');
-        img.src = student.photo;
+        img.src = `/img/users/${student.photo}`;
         img.alt = 'Student Photo';
         img.classList.add('student--profile');
 

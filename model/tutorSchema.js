@@ -16,7 +16,10 @@ const tutorSchema = new schema({
     },
     password: String,
     confirmPassword: String,
-    photo: String
+    photo: {
+        type: String,
+        default: "hack-capital-uv5_bsypFUM-unsplash.jpg",
+    }
 })
 
 

@@ -51,7 +51,7 @@
         <section id="overview--container">
             <% students.forEach(student => { %>
                 <div class="student--profile--container" id="studentProfiles">
-                    <img src="<%= student.photo %>" alt="Student Photo" class="student--profile">
+                    <img src="/img/users/<%= student.photo %>" alt="Student Photo" class="student--profile">
                     <a  href="/studentProfile/<%= student._id %> " class="student--name"> <%= student.firstname %> <%= student.lastname %></a>
                 </div>
             <% }); %>
