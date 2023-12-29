@@ -2,7 +2,7 @@ const {studentModel} = require('./../model/studentSchema')
 const {appError} = require('.././utils/appError')
 const { jwtToken } = require('.././utils/jwt')
 const multer=require('multer')
-const sharp= require('sharp')
+// const sharp= require('sharp')
 
 const multerStorage= multer.diskStorage({
 

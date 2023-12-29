@@ -27,27 +27,11 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
-// app.get('/allStudent', async (req,res,next)=>{
-//     const students= await studentModel.find({})
-//     if(!students && student.length===0)next(new appError('no student data was found', 404))
-//     res.status(200).json({students})
-// })
 app.use('/api', studentRoute)
 app.use('/api', tutorRoute)
 app.use('/', viewRoute)
 
 
-
-
-// const testEmail= async()=>{
-//     const users=[{email:'buikem0112@gmail.com'},{email:'ugwucosmaschibuike@gmail.com'},{email:'bantlord79@gmail.com'},{email:'ugwucosmas2002@gmail.com'},{email:'ugwuozortitus4@gmail.com'}]
-//     const head= "testing the mailing system"
-//     const content= 'this is to test that this email system built by me is working as it should be'
-
-//     return await emailSender(content, head, users)
-
-// }
-// testEmail()
 
 
 app.all('*', (req, res, next) => {

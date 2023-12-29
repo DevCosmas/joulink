@@ -7,6 +7,7 @@ const studentSchema = new schema({
     firstname: {
         type: String,
         required: [true, 'A student must have a first name'],
+        unique:true
     },
     lastname: {
         type: String,
@@ -47,8 +48,11 @@ const studentSchema = new schema({
     },
     email: {
         type: String,
+        unique:[true, 'this email is already registered'],
+        required:[true,'a student must have an email']
     },
 });
+studentSchema.index({ email: 1 }, { unique: true });
 
 const studentModel = mongoose.model('student', studentSchema);
 module.exports = { studentModel };

@@ -1,9 +1,11 @@
-module.exports= function errorhandler(err, req,res,next){
-    err.statusCode= err.statusCode || 500
-    err.result=err.result||'error'
+module.exports= function errorhandler(error, req,res,next){
+    error.statusCode= error.statusCode || 500
+    error.status=error.status||'error'
 
-    res.status(err.statusCode).json({
-        result:err.result,
-        message:err.message
+    res.status(error.statusCode).json({
+        result:error.status,
+        message:error.message,
+        error
+        
     })
 }
