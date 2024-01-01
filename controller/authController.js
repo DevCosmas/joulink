@@ -1,29 +1,44 @@
-const jwt = require('jsonwebtoken')
-const { tutorModel } = require('./../model/tutorSchema')
-const {appError} = require('./../utils/appError')
+const jwt = require('jsonwebtoken');
+const { tutorModel } = require('./../model/tutorSchema');
+const { appError } = require('./../utils/appError');
 
 const isAuthenticated = async (req, res, next) => {
-
     try {
-        const authHeader = req.headers.authorization
+        let token;
+        const authHeader = req.headers.authorization;
+
         if (authHeader) {
-            const token = authHeader.split(' ')[1];
-            return token
+            token = authHeader.split(' ')[1];
+        } else if (req.cookies && req.cookies.jwt) {
+            token = req.cookies.jwt;
         }
-        if (req.cookies) var token = req.cookies.jwt
+
+        if (!token) {
+         
+            return next();
+        }
+
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-        const date = new Date
-        const time = parseInt(date.getTime() / 1000)
-        const user = await tutorModel.findById(decodedToken.id)
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (decodedToken.exp < currentTime) {
+            return next(new appError('Token has expired', 401));
+        }
 
-        if (user && decodedToken.iat < time)
-            req.user = user
+   
+        const user = await tutorModel.findById(decodedToken.id);
 
-        return next()
+        if (user) {
+            req.user = user;
+        }
     } catch (err) {
-        next(new appError(err, 500))
+        return next(new appError(err.message, 500));
     }
-}
+
+    next();
+};
+
+
+
 const isLoggedIn = async (req, res, next) => {
     try {
         if (!req.cookies.jwt) {

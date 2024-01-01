@@ -54,6 +54,19 @@ router.get('/overview', async (req,res,next)=>{
     res.status(200).render("studentOverview", {students})
 })
 
+
+router.get('/resetPassword/:token', async (req,res,next)=>{
+    const students= await studentModel.find({})
+ if(!students && students.length===0)next(new appError('Failed password reset', 404))
+   res.status(200).render("changePassword")
+})
+
+router.get('/forgetPassword', async (req,res,next)=>{
+    const students= await studentModel.find({})
+ if(!students && students.length===0)next(new appError('This email is not registered', 404))
+   res.status(200).render("forgetPassword")
+})
+
 router.get('/studentProfile/:id', async (req, res, next) => {
     try {
         const student = await studentModel.findById(req.params.id);
@@ -63,11 +76,10 @@ router.get('/studentProfile/:id', async (req, res, next) => {
         }
     res.status(200).render('studentProfile', { student });
     } catch (error) {
-        next(error);
+        next(new appError(error,500));
     }
 });
 
 
 
-// router.get('/searchQuery', viewController.queryTask)
 module.exports = router
