@@ -72,4 +72,8 @@ router.get('/student_Card/:id', auth.isLoggedIn, async (req, res, next) => {
   }
 });
 
+// router.all('*', (req, res, next) => {
+// res.status(404).render('404')
+// });
+
 module.exports = router;

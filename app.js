@@ -39,7 +39,7 @@ app.use('/', viewRoute);
 app.use('/api', tutorRoute);
 
 app.all('*', (req, res, next) => {
-  next(new appError('page not found', 404));
+res.status(404).render('404')
 });
 
 app.use(errorhandler);
