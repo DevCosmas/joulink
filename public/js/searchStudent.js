@@ -1,3 +1,5 @@
+
+
 const showAlert = (type, msg) => {
   hideAlert();
   const markup = `<div class="alert alert--${type}">${msg}</div>`;
@@ -22,8 +24,9 @@ async function filterStudents() {
     if (response.ok) {
       displayStudentProfiles(data.students);
     } else {
-      const response = await res.json();
-      showAlert('fail', response.message);
+      const data = await response.json();
+      console.log(data)
+      showAlert('fail', data.message);
     }
   } catch (error) {
     showAlert('fail', 'Something went really wrong!');

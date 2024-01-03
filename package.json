@@ -25,5 +25,8 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=14.20.1"
   }
 }
