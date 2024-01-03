@@ -24,7 +24,6 @@ async function filterStudents() {
     if (response.ok) {
       displayStudentProfiles(data.students);
     } else {
-      const data = await response.json();
       console.log(data)
       showAlert('fail', data.message);
     }
