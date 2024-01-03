@@ -43,9 +43,9 @@ const forgetPasswordFn = async (
             console.log(response);
             showAlert('fail', response.message);
           }
-        } catch (err) {
+        } catch (error) {
           showAlert('fail', 'Something went really wrong!');
-          console.log(err);
+          console.log(error);
         }
 };
 

@@ -20,8 +20,6 @@ const cookieParser = require('cookie-parser');
 
 const viewRoute = require('./routes/viewRoutes');
 
-const { emailSender } = require('./utils/email');
-
 const PORT = process.env.PORT;
 
 const app = express();
@@ -52,6 +50,7 @@ const server = app.listen(PORT, () => {
 process.on('unhandledRejection', (err) => {
   console.log(err.name);
   console.log(err.message);
+  console.log(err.stack)
   console.log('UNHANDLED REJECTION! Shutting down...');
   server.close(() => {
     process.exit(1);
