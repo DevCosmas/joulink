@@ -1,9 +1,10 @@
 
-
-
-
 const { appError } = require('../utils/appError');
 
+const handleTokenExpire=(err,res)=>{
+  new appError('Your session is Expired. LogIn again!')
+  return res.json(200).render('login')
+}
 const handleCastError = (err) => {
   const value= err.error.value
   const message = `${value} is an Invalid Input`;
@@ -31,7 +32,6 @@ const handleOtherError=(err)=>{
   return new appError(err.message,500)
 }
 const errorDev = (error, res) => {
-  console.log(error.error.value)
   res.status(error.statusCode).json({
     result: error.status,
     message: error.message,
@@ -85,6 +85,9 @@ if(process.env.NODE_ENV==='production'){
     }else if(error.error.name="JsonWebTokenError"){
       const jwtErr = handleJwtError(error);
       errorProd(jwtErr, res);
+    }else if(error.error.name==='TokenExpiredError'){
+      const tokenErr=handleTokenExpire(error,res)
+      errorProd(token,res)
     }
      else {
       const otherErr= handleOtherError(error)

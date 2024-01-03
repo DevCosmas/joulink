@@ -889,3 +889,14 @@ box-sizing: border-box;
     background-color: #f44336;
     color: white;
 }
+
+.justHref{
+    color: orangered;
+    text-decoration: none;
+}
+.send--us{
+    border:.5px solid #000;
+    width: 50%;
+    margin: 0 auto;
+   
+}

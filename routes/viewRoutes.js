@@ -59,14 +59,14 @@ router.get('/forgetPassword', async (req, res, next) => {
   res.status(200).render('forgetPassword');
 });
 
-router.get('/studentProfile/:id', auth.isLoggedIn, async (req, res, next) => {
+router.get('/student_Card/:id', auth.isLoggedIn, async (req, res, next) => {
   try {
     const student = await studentModel.findById(req.params.id);
 
     if (!student) {
       return next(new appError('No student data was found', 404));
     }
-    res.status(200).render('studentProfile', { student });
+    res.status(200).render('studentCard', { student });
   } catch (error) {
     next(new appError(error, 500));
   }

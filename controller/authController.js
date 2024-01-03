@@ -60,7 +60,7 @@ const isLoggedIn = async (req, res, next) => {
         next()
 
     } catch (error) {
-        next(new appError(err, 500))
+        next(new appError(error, 500))
     }
 
 }
