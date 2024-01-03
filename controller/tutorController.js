@@ -14,14 +14,9 @@ async function signUp(req, res, next) {
     if (!newUser) {
       return next(new appError('fill in the correct details pls', 400));
     }
-
-    const token = await jwtToken(newUser._id);
-
-    res.cookie('jwt', token, { httpOnly: true });
     res.status(201).json({
       result: 'SUCCESS',
-      Message: 'You have succesfully signed Up',
-      token,
+      message: 'Sign up sucessful',
       tutorProfile: newUser,
     });
   } catch (err) {
@@ -34,7 +29,7 @@ async function Login(req, res, next) {
     // confirm if user exist
     const isValidUser = await tutorModel.findOne({ email: loginDetails.email });
     if (!isValidUser) {
-      return next(new appError('this user is not found. kindly sign up', 404));
+      return next(new appError('This user is not registered. kindly sign up', 404));
     }
     // compare user password
     const isValidPassowrd = await isValidUser.isValidPassword(
@@ -49,10 +44,9 @@ async function Login(req, res, next) {
     const token = await jwtToken(isValidUser._id);
 
     res.cookie('jwt', token, { httpOnly: true });
-    // console.log(req.cookies)
     res.status(200).json({
       result: 'SUCCESS',
-      Message: 'You are logged in now',
+      message: `Logged in as ${isValidUser.firstname}`,
       token,
       user: isValidUser,
     });
@@ -62,45 +56,58 @@ async function Login(req, res, next) {
 }
 
 async function updateProfile(req, res, next) {
-    try {
-      const updatesDetails = req.body;
-      const updatedUser = await tutorModel.findByIdAndUpdate(
-        req.user._id,
-        updatesDetails,
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-  
-      if (!updatedUser) {
-        return next(new appError('This user was not updated', 404));
-      }
-  
-      res.status(200).json({
-        result: 'Success',
-        message: 'User details have been successfully updated',
-        updatedUser,
-      });
-    } catch (err) {
-      next(new appError(err, 500));
+  try {
+    const userDetailsToBeUpdated = req.body;
+    const user = await tutorModel.findOne({ _id: req.user.id });
+    console.log(user)
+    if (!user) {
+      return next(new appError('This user is not found', 404));
     }
+    userDetailsToBeUpdated.photo = req.file
+      ? req.file.path
+      : user.photo;
+
+      // Object.assign(user, userDetailsToBeUpdated)
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      result: 'Success',
+      message: 'User details have been successfully updated',
+      updatedUser,
+    });
+
+    // const updatesDetails = req.body;
+    // const updatedUser = await tutorModel.findByIdAndUpdate(
+    //   req.user.id,
+    //   updatesDetails,
+    //   {
+    //     new: true,
+    //     runValidators: true,
+    //   }
+    // );
+
+    // if (!updatedUser) {
+    //   return next(new appError('This user was not updated', 404));
+    // }
+  } catch (err) {
+    next(new appError(err, 500));
   }
-  
-  async function deleteAcct(req, res, next) {
-    try {
-      const deleteUser = await tutorModel.findByIdAndDelete(req.user._id);
-      
-      if (deleteUser) {
-        return res
-          .status(203)
-          .json({ result: 'Success', message: 'Account deletion successful' });
-      }
-    } catch (err) {
-      next(new appError(err, 500));
+}
+
+async function deleteAcct(req, res, next) {
+  try {
+    const deleteUser = await tutorModel.findByIdAndDelete(req.user._id);
+
+    if (deleteUser) {
+      return res
+        .status(203)
+        .json({ result: 'Success', message: 'Account deletion successful' });
     }
+  } catch (err) {
+    next(new appError(err, 500));
   }
-  
+}
 
 const logout = (req, res) => {
   res.clearCookie('jwt', {
@@ -140,22 +147,23 @@ const forgetPassword = async (req, res, next) => {
     }
 
     const resetToken = await user.createResetToken();
-    const url = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+    const url = `${req.protocol}://${req.get(
+      'host'
+    )}/resetPassword/${resetToken}`;
 
     console.log(resetToken);
 
     await sendMail.sendPasswordResetEmail(user, resetToken, url);
     await user.save({ validateBeforeSave: false });
-    
+
     res.status(200).json({
-      statusP:'sucess',
+      statusP: 'sucess',
       message: 'Your password reset token has been sent. Check your mailbox.',
     });
   } catch (err) {
     next(new appError(err, 500));
   }
 };
-
 
 const resetPassword = async (req, res, next) => {
   try {
@@ -182,7 +190,7 @@ const resetPassword = async (req, res, next) => {
       .status(200)
       .json({ message: 'a new pasword has been set', token, user });
   } catch (err) {
-    next(new appError(err, 500))
+    next(new appError(err, 500));
   }
 };
 
@@ -194,5 +202,5 @@ module.exports = {
   logout,
   sendEmail,
   resetPassword,
-  forgetPassword
+  forgetPassword,
 };

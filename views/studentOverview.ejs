@@ -12,9 +12,10 @@
 
 <body>
     <header class="landing--pageTwo">
+        <% if (user) { %>
         <nav class="tutor--nav">
             <span class="tutor--img">
-                <img src="/img/j-bgr.avif" alt="" class="tutor-img">
+                <img src="/img/<%= user.photo %>" alt="" class="tutor-img">
                 <p class="tutorname">Joulinks digital hub</p>
             </span>
             <a href="/sendEmail" class="nav--link">send email</a>
@@ -27,7 +28,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
         </nav>
-
+        <% }%>
         <ul class="fixed-nav">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class=" cancel " id="stick-cancel">

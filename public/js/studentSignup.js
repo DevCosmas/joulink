@@ -1,19 +1,19 @@
 // // import { showAlert } from "./showAlert";
 // // const applicationForm = document.querySelector('.apply');
 
-// // const showAlert = (type, msg) => {
-// //     hideAlert();
-// //     const markup = `<div class="alert alert--${type}">${msg}</div>`;
-// //     document.body.insertAdjacentHTML('afterbegin', markup);
-// //     window.setTimeout(hideAlert, 5000);
-// // };
+const showAlert = (type, msg) => {
+    hideAlert();
+    const markup = `<div class="alert alert--${type}">${msg}</div>`;
+    document.body.insertAdjacentHTML('afterbegin', markup);
+    window.setTimeout(hideAlert, 5000);
+};
 
-// // const hideAlert = () => {
-// //     const alertElement = document.querySelector('.alert');
-// //     if (alertElement) {
-// //         alertElement.parentElement.removeChild(alertElement);
-// //     }
-// // };
+const hideAlert = () => {
+    const alertElement = document.querySelector('.alert');
+    if (alertElement) {
+        alertElement.parentElement.removeChild(alertElement);
+    }
+};
 
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -48,16 +48,15 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
 
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
-      // showAlert('success', 'Your application was received successfully');
+      showAlert('success', data.message);
     } else {
-      const errorResponse = await res.json();
-      console.log(errorResponse);
-      // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
+      const response = await res.json();
+      console.log(response);
+      showAlert('fail', response.message);
     }
   } catch (err) {
-    // showAlert('fail', 'An unexpected error occurred. Please try again.');
-    console.error(err);
+    showAlert('fail', 'Something went really wrong!');
+    console.log(err);
   }
 
   document.getElementById('studentForm').reset();

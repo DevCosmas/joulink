@@ -1,21 +1,18 @@
 
 
-// import { showAlert } from "./showAlert";
-// const applicationForm = document.querySelector('.apply');
+const showAlert = (type, msg) => {
+    hideAlert();
+    const markup = `<div class="alert alert--${type}">${msg}</div>`;
+    document.body.insertAdjacentHTML('afterbegin', markup);
+    window.setTimeout(hideAlert, 5000);
+};
 
-// const showAlert = (type, msg) => {
-//     hideAlert();
-//     const markup = `<div class="alert alert--${type}">${msg}</div>`;
-//     document.body.insertAdjacentHTML('afterbegin', markup);
-//     window.setTimeout(hideAlert, 5000);
-// };
-
-// const hideAlert = () => {
-//     const alertElement = document.querySelector('.alert');
-//     if (alertElement) {
-//         alertElement.parentElement.removeChild(alertElement);
-//     }
-// };
+const hideAlert = () => {
+    const alertElement = document.querySelector('.alert');
+    if (alertElement) {
+        alertElement.parentElement.removeChild(alertElement);
+    }
+};
 
 const studentForm= document.querySelector('.studentForm')
 
@@ -39,21 +36,17 @@ const forgetPasswordFn = async (
 
         if (res.ok) {
             const data = await res.json();
-            console.log('email is sending.....')
-            // window.setTimeout(()=>{
-            //     location.assign('/')
-            // },1000)
             console.log(data)
-            // showAlert('success', 'Your application was received successfully');
-        } else {
-            const errorResponse = await res.json();
-            console.log(errorResponse)
-            // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
+            showAlert('success', data.message);
+        }  else {
+            const response = await res.json();
+            console.log(response);
+            showAlert('fail', response.message);
+          }
+        } catch (err) {
+          showAlert('fail', 'Something went really wrong!');
+          console.log(err);
         }
-    } catch (err) {
-        // showAlert('fail', 'An unexpected error occurred. Please try again.');
-        console.log(error)
-    }
 };
 
 studentForm.addEventListener('submit',(e)=>{

@@ -14,8 +14,7 @@ const tutorRoute = require('./routes/tutorRoute');
 const errorhandler = require('./controller/errorHandler');
 const { appError } = require('./utils/appError');
 const path = require('path');
-
-// const cookieParser = require("cookie-parser")
+const cookieParser = require('cookie-parser');
 // const helmet = require('helmet')
 // const morgan = require('morgan')
 
@@ -30,11 +29,12 @@ mongoDbConnection();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 console.log(process.env.NODE_ENV);
-
+// app.use(req,res)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', studentRoute);
 app.use('/', viewRoute);

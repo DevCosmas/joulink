@@ -79,37 +79,30 @@ const findStudentEmail = async (req, res, next) => {
 
 const findAllStudent = async (req, res, next) => {
   try {
+    let query = {};
+
     if (req.query.firstname) {
       const nonCaseSensitive = new RegExp(req.query.firstname, 'i');
-      const students = await studentModel.find({ firstname: nonCaseSensitive });
-
-      if (!students || students.length === 0) {
-        next(new appError('No student was found', 404));
-      }
-
-      res.status(200).json({
-        result: 'success',
-        message: 'See the list of students',
-        size: students.length,
-        students,
-      });
-    } else {
-      const students = await studentModel.find({});
-      if (!students || students.length === 0) {
-        next(new appError('No student was found', 404));
-      }
-
-      return res.status(200).json({
-        result: 'success',
-        message: 'See the list of students',
-        size: students.length,
-        students,
-      });
+      query = { firstname: nonCaseSensitive };
     }
+
+    const students = await studentModel.find(query);
+
+    if (!students || students.length === 0) {
+      return next(new appError('No student was found', 404));
+    }
+
+    return res.status(200).json({
+      result: 'success',
+      message: 'See the list of students',
+      size: students.length,
+      students,
+    });
   } catch (err) {
     next(new appError(err, 500));
   }
 };
+
 
 module.exports = {
   studentForm,

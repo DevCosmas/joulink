@@ -50,6 +50,8 @@ const isLoggedIn = async (req, res, next) => {
             const time = parseInt(date.getTime() / 1000)
             const user = await tutorModel.findById(decodedToken.id)
 
+            console.log(req.cookies)
+
             if (user && decodedToken.iat < time)
                 res.locals.user = user
             return next()

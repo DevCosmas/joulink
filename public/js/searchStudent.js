@@ -1,3 +1,17 @@
+const showAlert = (type, msg) => {
+  hideAlert();
+  const markup = `<div class="alert alert--${type}">${msg}</div>`;
+  document.body.insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 5000);
+};
+
+const hideAlert = () => {
+  const alertElement = document.querySelector('.alert');
+  if (alertElement) {
+      alertElement.parentElement.removeChild(alertElement);
+  }
+};
+
 async function filterStudents() {
   try {
     const searchValue = document
@@ -8,10 +22,12 @@ async function filterStudents() {
     if (response.ok) {
       displayStudentProfiles(data.students);
     } else {
-      console.log('Error:', data.message);
+      const response = await res.json();
+      showAlert('fail', response.message);
     }
   } catch (error) {
-    console.log('Error:', error);
+    showAlert('fail', 'Something went really wrong!');
+    console.log(error);
   }
 }
 

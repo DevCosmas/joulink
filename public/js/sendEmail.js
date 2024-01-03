@@ -1,3 +1,17 @@
+const showAlert = (type, msg) => {
+  hideAlert();
+  const markup = `<div class="alert alert--${type}">${msg}</div>`;
+  document.body.insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 5000);
+};
+
+const hideAlert = () => {
+  const alertElement = document.querySelector('.alert');
+  if (alertElement) {
+      alertElement.parentElement.removeChild(alertElement);
+  }
+};
+
 const resultInput = document.querySelector('.email--placeholder');
 const sendEmailForm = document.querySelector('.sendEmail');
 let searchData = {};
@@ -20,11 +34,12 @@ const getRecipientMail = async (searchParams) => {
       const response = await res.json();
       return response.data;
     } else {
-      const err = await res.json();
-      console.log(err.message);
+      const response = await res.json();
+      showAlert('fail', response.message);
     }
   } catch (err) {
-    console.error(err.message);
+    showAlert('fail', 'Something went really wrong!');
+    console.log(err);
   }
 };
 
@@ -47,13 +62,14 @@ const sendEmail = async (emailBody, emailHead, emails) => {
 
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
+      showAlert('success', data.message);
     } else {
-      const err = await res.json();
-      console.log(err.message);
+      const response = await res.json();
+      showAlert('fail', response.message);
     }
   } catch (err) {
-    console.error(err.message);
+    showAlert('fail', 'Something went really wrong!');
+    console.log(err);
   }
 };
 

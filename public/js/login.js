@@ -1,78 +1,60 @@
 
-
-// import { showAlert } from "./showAlert";
-// const applicationForm = document.querySelector('.apply');
-
-// const showAlert = (type, msg) => {
-//     hideAlert();
-//     const markup = `<div class="alert alert--${type}">${msg}</div>`;
-//     document.body.insertAdjacentHTML('afterbegin', markup);
-//     window.setTimeout(hideAlert, 5000);
-// };
-
-// const hideAlert = () => {
-//     const alertElement = document.querySelector('.alert');
-//     if (alertElement) {
-//         alertElement.parentElement.removeChild(alertElement);
-//     }
-// };
-
-const studentForm= document.querySelector('.studentForm')
-
-
-const logInFn = async ( 
-    email,
-    password
-    ) => {
-    try {
-       
-        const logInDetails = {
-            email,
-           password
-       
-        };
-        const res = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(logInDetails),
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            console.log('overview loading.....')
-            window.setTimeout(()=>{
-                location.assign('/overview')
-            },1000)
-            console.log(data)
-            // showAlert('success', 'Your application was received successfully');
-        } else {
-            const errorResponse = await res.json();
-            console.log(errorResponse)
-            // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
-        }
-    } catch (err) {
-        // showAlert('fail', 'An unexpected error occurred. Please try again.');
-        console.log(error)
-    }
+const showAlert = (type, msg) => {
+  hideAlert();
+  const markup = `<div class="alert alert--${type}">${msg}</div>`;
+  document.body.insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 2000);
 };
 
-studentForm.addEventListener('submit',(e)=>{
-    e.preventDefault()
+const hideAlert = () => {
+  const alertElement = document.querySelector('.alert');
+  if (alertElement) {
+    alertElement.parentElement.removeChild(alertElement);
+  }
+};
 
-const password = document.getElementById('password').value;
-const email = document.querySelector('#email').value;
+const studentForm = document.querySelector('.studentForm');
 
+const logInFn = async (email, password) => {
+  try {
+    const logInDetails = {
+      email,
+      password,
+    };
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(logInDetails),
+    });
 
-logInFn(
-    email,
-    password
-)
+    if (res.ok) {
+      const data = await res.json();
+      showAlert('success', data.message);
+      window.setTimeout(() => {
+        location.assign('/overview');
+      }, 1000);
+      console.log(data);
+    } else {
+      const response = await res.json();
+      console.log(response);
+      showAlert('fail', response.message);
+    }
+  } catch (err) {
+    showAlert('fail', 'Something went really wrong!');
+    console.log(err);
+  }
+};
 
-studentForm.reset()
-})
+studentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
 
+  const password = document.getElementById('password').value;
+  const email = document.querySelector('#email').value;
 
-// export {signUpFn}
- 
+  logInFn(email, password);
+
+  studentForm.reset();
+});
+

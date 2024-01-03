@@ -14,11 +14,13 @@ tutorRouter.post('/login', tutorController.Login);
 tutorRouter.post('/sendEmail', auth.isAuthenticated, tutorController.sendEmail);
 tutorRouter.patch(
   '/updateProfile',
+  auth.isLoggedIn,
   auth.isAuthenticated,
   tutorController.updateProfile
 );
 tutorRouter.delete(
   '/deleteAccount',
+  auth.isLoggedIn,
   auth.isAuthenticated,
   tutorController.deleteAcct
 );

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit profile</title>
+    <link rel="stylesheet" href="/editAcc.css">
+</head>
+<body>
+    <main class="main">
+        <div class="user-view">
+          
+          <div class="user-view__content">
+            <div class="user-view__form-container">
+              <h2 class="heading-secondary ma-bt-md">Your account settings</h2>
+              <form class="form form-user-data" id="tutor-update">
+                <% if (user) { %>
+                <div class="form__group form__photo-upload">
+                    <label for="" class="inputTag">
+                        <img id="photo" class="form__user-photo" src="/img/<%= user.photo %>" alt="User photo" />
+
+                        <span class="upload-btn">
+                            <input class="btn-text" href="" type="file">
+                        </span>
+                    </label>
+                  
+                </div>
+                <% }%>
+                <div class="form__group">
+                  <label class="form__label" for="name">Firstname</label>
+                  <input id="firstname" class="form__input" type="text"  required />
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="name">Lastname</label>
+                  <input id="lastname" class="form__input" type="text"  required />
+                </div>
+                <div class="form__group ma-bt-md">
+                  <label class="form__label" for="email">Email address</label>
+                  <input id="email" class="form__input" type="email"  required />
+                </div>
+                <div class="form__group right">
+                  <button class="btn btn--small btn--green" type="submit">Save settings</button>
+                </div>
+              </form>
+            </div>
+            <div class="line">&nbsp;</div>
+            <div class="user-view__form-container">
+              <h2 class="heading-secondary ma-bt-md">Password change</h2>
+              <form class="form form-user-settings">
+                <div class="form__group">
+                  <label class="form__label" for="password-current">Current password</label>
+                  <input id="password-current" class="form__input" type="password" placeholder="••••••••" required minlength="8" />
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="password">New password</label>
+                  <input id="password" class="form__input" type="password" placeholder="••••••••" required minlength="8" />
+                </div>
+                <div class="form__group ma-bt-lg">
+                  <label class="form__label" for="password-confirm">Confirm password</label>
+                  <input id="password-confirm" class="form__input" type="password" placeholder="••••••••" required minlength="8" />
+                </div>
+                <div class="form__group right">
+                  <button class="btn btn--small btn--green" type="submit">Save password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <script src="/js/updateProfile.js"></script>
+</body>
+</html>
