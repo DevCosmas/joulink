@@ -35,7 +35,6 @@ const logInFn = async (email, password) => {
       window.setTimeout(() => {
         location.assign('/overview');
       }, 1000);
-      console.log(data);
     } else {
       const response = await res.json();
       console.log(response);
