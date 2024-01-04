@@ -5,15 +5,6 @@ const { tutorModel } = require('./../model/tutorSchema');
 const { appError } = require('.././utils/appError');
 const auth = require('../controller/authController');
 
-// const findAllStudent=async (req,res,next)=>{
-//     const students= await studentModel.find({})
-//     if(!students && student.length===0)next(new appError('no student data was found', 404))
-//     res.status(200).json({students})
-// }
-
-// const authController = require('./../controller/authController')
-// const viewController = require('./../controller/view_controller')
-
 router.get('/', (req, res) => {
   res.status(200).render('app');
 });
@@ -25,18 +16,10 @@ router.get('/login', (req, res) => {
   res.status(200).render('login');
 });
 
-// router.use(authController.isLoggedIn)
-
-// router.get('/overview', (req, res) => {
-//     res.status(200).render('studentOverview')
-// })
 router.get('/sendEmail', auth.isLoggedIn, (req, res) => {
   res.status(200).render('sendEmail');
 });
-// router.get('/Email',(req,res)=>{
-//     res.status(200).render('email')
 
-// })
 router.get('/form', (req, res) => {
   res.status(200).render('studentForm');
 });
@@ -59,6 +42,33 @@ router.get('/forgetPassword', async (req, res, next) => {
   res.status(200).render('forgetPassword');
 });
 
+router.get('/checkEmail', async (req, res, next) => {
+  res.status(200).render('checkEmail');
+});
+
+router.get('/confirmEmail/:id', async (req, res, next) => {
+  try {
+    const confirmStudent = await studentModel.findOne({ _id: req.params.id });
+
+    if (!confirmStudent) {
+      const message = `Email is not confirmed!! Your registration is not complete 💥`;
+      res.status(200).render('confirmEmail', {
+        message,
+      });
+    } else {
+      const message = `Email is confirmed!! Your registration is now complete ✔🙌`;
+      res.status(200).render('confirmEmail', {
+        message,
+      });
+    }
+  } catch (error) {
+    const message = `Email is not confirmed!! Your registration is not complete 💥`;
+    res.status(200).render('confirmEmail', {
+      message,
+    });
+  }
+});
+
 router.get('/student_Card/:id', auth.isLoggedIn, async (req, res, next) => {
   try {
     const student = await studentModel.findById(req.params.id);
@@ -71,9 +81,5 @@ router.get('/student_Card/:id', auth.isLoggedIn, async (req, res, next) => {
     next(new appError(error, 500));
   }
 });
-
-// router.all('*', (req, res, next) => {
-// res.status(404).render('404')
-// });
 
 module.exports = router;

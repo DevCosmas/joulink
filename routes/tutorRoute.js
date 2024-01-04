@@ -26,12 +26,10 @@ tutorRouter.delete(
 );
 tutorRouter.patch(
   '/reset_password/:token',
-  // auth.isAuthenticated,
   tutorController.resetPassword
 );
 tutorRouter.post(
   '/forget_password',
-  // auth.isAuthenticated,
   tutorController.forgetPassword
 );
 tutorRouter.post('/logout', tutorController.logout);

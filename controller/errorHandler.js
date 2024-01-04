@@ -1,7 +1,7 @@
 const { appError } = require('../utils/appError');
 
 const handleTokenExpire = (err, res) => {
-  if (err.messag === 'jwt is expired') return res.status(200).render('login');
+  return res.status(200).render('login');
 };
 const handleCastError = (err) => {
   const value = err.error.value;

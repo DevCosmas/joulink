@@ -904,3 +904,31 @@ box-sizing: border-box;
     margin-bottom: 2rem;
     margin-left: 4%;
 }
+.confirm--container{
+    margin-top: 20vh;
+}
+
+.go--home{
+    text-decoration: none;
+    display: inline-block;
+    width: 15rem;
+    text-align: center;
+    border: .5px solid green;
+    padding: 1.5rem;
+    border-radius: 5px 5px;
+    margin-top: 2rem;
+    color: #000;
+    font-size: 2rem;
+    text-transform: capitalize;
+   
+}
+
+.go--home:hover{
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+}
+
+.confrim--email{
+    font-size: 2rem;
+}

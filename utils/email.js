@@ -90,6 +90,8 @@ class EmailSender {
           const toAddress = user.email;
           const firstname = user.firstname;
 
+          console.log(toAddress)
+
           if (!toAddress) {
             console.error('Invalid user email:', user);
             continue;
@@ -117,14 +119,12 @@ class EmailSender {
   async sendWelcomeEmail(user, url) {
     const currentDate = new Date(Date.now());
     const currentYear = currentDate.getFullYear();
+    const studentID=JSON.stringify(user._id).slice(0,5)
     const emailAddress = user.email;
     const firstname = user.firstname;
-    const message = `Welcome to Joulink digital hub. Your registration for <b>${
+    const message = `Welcome to Joulink digital hub. Your registration for ${
       user.course
-    }</b> track is almost completed. Your <b>STUDENT ID</b> is (${user.firstname.toUpperCase()}-${user._id.slice(
-      0,
-      5
-    )}/${currentYear}). We are Super excited to have you with us!.\n Kindly confirm your email by clicking on the button below to complete your registration`;
+    }track is almost completed.\n Your STUDENT ID is:  (${user.firstname.toUpperCase()}-${studentID}/${currentYear}). We are Super excited to have you with us!.\n Kindly confirm your email by clicking on the button below to complete your registration`;
     const heading = 'Welcome';
     const templatePath = path.join(__dirname, '../views/welcome.ejs');
     const template = await ejs.renderFile(templatePath, {

@@ -1,18 +1,15 @@
-// // import { showAlert } from "./showAlert";
-// // const applicationForm = document.querySelector('.apply');
-
 const showAlert = (type, msg) => {
-    hideAlert();
-    const markup = `<div class="alert alert--${type}">${msg}</div>`;
-    document.body.insertAdjacentHTML('afterbegin', markup);
-    window.setTimeout(hideAlert, 5000);
+  hideAlert();
+  const markup = `<div class="alert alert--${type}">${msg}</div>`;
+  document.body.insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 5000);
 };
 
 const hideAlert = () => {
-    const alertElement = document.querySelector('.alert');
-    if (alertElement) {
-        alertElement.parentElement.removeChild(alertElement);
-    }
+  const alertElement = document.querySelector('.alert');
+  if (alertElement) {
+    alertElement.parentElement.removeChild(alertElement);
+  }
 };
 
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
@@ -49,6 +46,9 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
     if (res.ok) {
       const data = await res.json();
       showAlert('success', data.message);
+      window.setTimeout(() => {
+        location.assign('/checkEmail');
+      }, 1000);
     } else {
       const response = await res.json();
       console.log(response);

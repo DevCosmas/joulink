@@ -130,7 +130,7 @@ const sendEmail = async (req, res, next) => {
         .json({ result: 'error', message: 'Invalid or empty email list' });
     }
 
-    await sendMail.sendGeneralEmail(emailContent, emailHeading, emails);
+    await sendMail.sendGeneralEmail(emails, emailContent, emailHeading);
     res
       .status(200)
       .json({ result: 'success', message: 'Email was sent successfully' });

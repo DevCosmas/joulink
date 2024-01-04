@@ -1,10 +1,22 @@
+
+const showAlert = (type, msg) => {
+  hideAlert();
+  const markup = `<div class="alert alert--${type}">${msg}</div>`;
+  document.body.insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(hideAlert, 2000);
+};
+
+const hideAlert = () => {
+  const alertElement = document.querySelector('.alert');
+  if (alertElement) {
+    alertElement.parentElement.removeChild(alertElement);
+  }
+};
 const studentForm = document.querySelector('.studentForm');
 
 const resetPasswod = async (password, confirmPassword) => {
   const url = window.location.href;
   const token = url.split("/")[4]
-//     console.log('Token:', token);
-//   console.log('url:', url);
   try {
     const changePassword = {
       password,
@@ -22,16 +34,16 @@ const resetPasswod = async (password, confirmPassword) => {
       console.log('login loading.....');
       window.setTimeout(() => {
         location.assign('/login');
-      }, 1000);
-      console.log(data);
-      // showAlert('success', 'Your application was received successfully');
+      }, 2000);
+      showAlert('success', data.message);
     } else {
       const errorResponse = await res.json();
       console.log(errorResponse);
-      // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
+      showAlert('fail', errorResponse.message);
     }
   } catch (err) {
-    console.Error(err);
+    showAlert('fail', 'Something went really wrong');
+    console.log(err);
   }
 };
 

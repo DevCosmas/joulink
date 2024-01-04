@@ -41,11 +41,13 @@ const studentForm = async (req, res, next) => {
     const url = `${req.protocol}://${req.get('host')}/confirmEmail/:${
       newStudent._id
     }`;
+
+    console.log(newStudent._id)
     await sendMail.sendWelcomeEmail(newStudent, url);
     const token = await jwtToken(newStudent._id);
     res.status(201).json({
       result: 'Success',
-      message: 'a new student has been admitted',
+      message: 'Registration is succesfull',
       token,
       newStudent,
     });
@@ -103,10 +105,20 @@ const findAllStudent = async (req, res, next) => {
   }
 };
 
+const confirmEmail = async (req, res, next) => {
+  const confirmStudent = await studentModel.findOne({ _id: req.params.id });
+  if (!confirmStudent) next(new appError('Email was not confirmed', 404));
+
+  res.status(200).json({
+    result: 'sucesss',
+    message: 'Your email confirmation is complete',
+  });
+};
 
 module.exports = {
   studentForm,
   findStudentEmail,
   findAllStudent,
   uploadStudentPhoto,
+  confirmEmail,
 };
