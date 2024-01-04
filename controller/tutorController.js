@@ -29,7 +29,9 @@ async function Login(req, res, next) {
     // confirm if user exist
     const isValidUser = await tutorModel.findOne({ email: loginDetails.email });
     if (!isValidUser) {
-      return next(new appError('This user is not registered. kindly sign up', 404));
+      return next(
+        new appError('This user is not registered. kindly sign up', 404)
+      );
     }
     // compare user password
     const isValidPassowrd = await isValidUser.isValidPassword(
@@ -59,15 +61,13 @@ async function updateProfile(req, res, next) {
   try {
     const userDetailsToBeUpdated = req.body;
     const user = await tutorModel.findOne({ _id: req.user.id });
-    console.log(user)
+    console.log(user);
     if (!user) {
       return next(new appError('This user is not found', 404));
     }
-    userDetailsToBeUpdated.photo = req.file
-      ? req.file.path
-      : user.photo;
+    userDetailsToBeUpdated.photo = req.file ? req.file.path : user.photo;
 
-      // Object.assign(user, userDetailsToBeUpdated)
+    // Object.assign(user, userDetailsToBeUpdated)
 
     const updatedUser = await user.save();
 
