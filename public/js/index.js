@@ -42,23 +42,3 @@ stickCancel.addEventListener('click', function () {
   defaulltNavState(tutorNavigation, mobileViewNavigation);
 });
 
-//     studentForm.addEventListener('submit',(e)=>{
-//       e.preventDefault()
-
-//       const firstName= document.querySelector('.firstname')
-//       const lastName= document.querySelector('.lastname')
-//       const gender= document.querySelector('.gender')
-//       const DOB= document.querySelector('.DOB ')
-//       const  stateOfOrigin= document.querySelector('.stateOfOrigin')
-//       const  homeAddress= document.querySelector('.homeAdress')
-//       const  course= document.querySelector('.course')
-//       const  lessonTime= document.querySelector('.lessonTime')
-//       const  paymentMethod= document.querySelector('.paymentMethod')
-//       const  photo= document.querySelector('.photo')
-//       const  email= document.querySelector('.email')
-
-// signUpFn(firstName,lastName,gender,DOB, stateOfOrigin,homeAddress,course,lessonTime, paymentMethod,
-//   photo,email)
-
-//   studentForm.reset()
-//  })
