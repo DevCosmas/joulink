@@ -115,11 +115,17 @@ class EmailSender {
   }
 
   async sendWelcomeEmail(user, url) {
+    const currentDate = new Date(Date.now());
+    const currentYear = currentDate.getFullYear();
     const emailAddress = user.email;
     const firstname = user.firstname;
-    const message = `Welcome to Joulink digital hub. We are Super excited to have you with us!.\n Kindly confirm your email by clicking on the button below`;
+    const message = `Welcome to Joulink digital hub. Your registration for <b>${
+      user.course
+    }</b> track is almost completed. Your <b>STUDENT ID</b> is (${user.firstname.toUpperCase()}-${user._id.slice(
+      0,
+      5
+    )}/${currentYear}). We are Super excited to have you with us!.\n Kindly confirm your email by clicking on the button below to complete your registration`;
     const heading = 'Welcome';
-
     const templatePath = path.join(__dirname, '../views/welcome.ejs');
     const template = await ejs.renderFile(templatePath, {
       message,
@@ -132,9 +138,10 @@ class EmailSender {
   }
 
   async sendPasswordResetEmail(user, resetToken, url) {
-    const firstname=user.firstname
-    const emailAddress=user.email
-    const message = `You have requested for a password reset Token.\n Click the link provided to reset your passord`;
+    const timeRemainingInMinutes = Math.max(0, Math.ceil((user.resetTimeExp - Date.now()) / 60000));
+    const firstname = user.firstname;
+    const emailAddress = user.email;
+    const message = `You have requested for a password reset Token. This token will be expiring in the next ${timeRemainingInMinutes} minutes \n Click the link provided to reset your passord`;
     const heading = 'Password Reset';
     const templatePath = path.join(__dirname, '../views/reset.ejs');
     const template = await ejs.renderFile(templatePath, {
