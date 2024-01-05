@@ -31,7 +31,6 @@ const resetPasswod = async (password, confirmPassword) => {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log('login loading.....');
       window.setTimeout(() => {
         location.assign('/login');
       }, 2000);

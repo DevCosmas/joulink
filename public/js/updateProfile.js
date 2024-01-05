@@ -1,24 +1,21 @@
 
+const showAlert = (type, msg) => {
+    hideAlert();
+    const markup = `<div class="alert alert--${type}">${msg}</div>`;
+    document.body.insertAdjacentHTML('afterbegin', markup);
+    window.setTimeout(hideAlert, 5000);
+};
 
-// import { showAlert } from "./showAlert";
-// const applicationForm = document.querySelector('.apply');
+const hideAlert = () => {
+    const alertElement = document.querySelector('.alert');
+    if (alertElement) {
+        alertElement.parentElement.removeChild(alertElement);
+    }
+};
 
-// const showAlert = (type, msg) => {
-//     hideAlert();
-//     const markup = `<div class="alert alert--${type}">${msg}</div>`;
-//     document.body.insertAdjacentHTML('afterbegin', markup);
-//     window.setTimeout(hideAlert, 5000);
-// };
-
-// const hideAlert = () => {
-//     const alertElement = document.querySelector('.alert');
-//     if (alertElement) {
-//         alertElement.parentElement.removeChild(alertElement);
-//     }
-// };
-
-
-document.getElementById('tutor-update').addEventListener('submit', async (e) => {
+document
+  .getElementById('tutor-update')
+  .addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const studentForm = new FormData();
@@ -29,24 +26,24 @@ document.getElementById('tutor-update').addEventListener('submit', async (e) => 
     studentForm.append('email', document.querySelector('#email').value);
 
     try {
-        const res = await fetch('/api/updateProfile', {
-            method: 'PATCH',
-            body: studentForm,
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            console.log(data);
-            // showAlert('success', 'Your application was received successfully');
-        } else {
-            const errorResponse = await res.json();
-            console.log(errorResponse);
-            // showAlert('fail', errorResponse.message || 'Application not successful. Try again!');
-        }
+      const res = await fetch('/api/updateProfile', {
+        method: 'PATCH',
+        body: studentForm,
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log(data);
+        showAlert('success', data.message);
+      } else {
+        showAlert('fail', data.message);
+      }
     } catch (err) {
-        // showAlert('fail', 'An unexpected error occurred. Please try again.');
-        console.error(err);
+      showAlert('fail', 'something went really wrong');
+      console.error(err);
     }
 
-    document.getElementById('studentForm').reset();
-});
+    document.querySelector('.form-user-settings').reset();
+  });
+
+
+ 

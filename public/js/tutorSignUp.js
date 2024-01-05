@@ -37,7 +37,7 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
       const data = await res.json();
       showAlert('success', data.message);
       window.setTimeout(() => {
-        location.assign('/login');
+        location.assign('/applicationProcess');
       }, 1000);
     } else {
       const response = await res.json();

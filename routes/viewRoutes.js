@@ -19,6 +19,9 @@ router.get('/login', (req, res) => {
 router.get('/sendEmail', auth.isLoggedIn, (req, res) => {
   res.status(200).render('sendEmail');
 });
+router.get('/applicationProcess', (req, res) => {
+  res.status(200).render('tutorConfirm');
+});
 
 router.get('/form', (req, res) => {
   res.status(200).render('studentForm');

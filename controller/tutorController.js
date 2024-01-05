@@ -4,6 +4,7 @@ const { studentModel } = require('./../model/studentSchema');
 const { jwtToken } = require('./../utils/jwt');
 const { appError } = require('./../utils/appError');
 const EmailSender = require('./../utils/email');
+const bcrypt = require('bcrypt');
 const sendMail = new EmailSender();
 
 async function signUp(req, res, next) {
@@ -59,37 +60,28 @@ async function Login(req, res, next) {
 
 async function updateProfile(req, res, next) {
   try {
-    const userDetailsToBeUpdated = req.body;
-    const user = await tutorModel.findOne({ _id: req.user.id });
-    console.log(user);
-    if (!user) {
-      return next(new appError('This user is not found', 404));
-    }
-    userDetailsToBeUpdated.photo = req.file ? req.file.path : user.photo;
-
-    // Object.assign(user, userDetailsToBeUpdated)
-
-    const updatedUser = await user.save();
+    const updatesDetails = req.body;
+    console.log(req.file);
+    console.log(req.body);
+    updatesDetails.photo = req.file ? req.file.filename : req.user.photo;
+    const updatedUser = await tutorModel.findByIdAndUpdate(
+      req.user.id,
+      updatesDetails,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     res.status(200).json({
-      result: 'Success',
-      message: 'User details have been successfully updated',
+      result: 'success',
+      message: 'Account updated succesfully',
       updatedUser,
     });
 
-    // const updatesDetails = req.body;
-    // const updatedUser = await tutorModel.findByIdAndUpdate(
-    //   req.user.id,
-    //   updatesDetails,
-    //   {
-    //     new: true,
-    //     runValidators: true,
-    //   }
-    // );
-
-    // if (!updatedUser) {
-    //   return next(new appError('This user was not updated', 404));
-    // }
+    if (!updatedUser) {
+      return next(new appError('This user was not updated', 404));
+    }
   } catch (err) {
     next(new appError(err, 500));
   }
@@ -194,6 +186,30 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+const changePassword = async (req, res, next) => {
+  const passwordDetails = req.body;
+  // console.log(encryptedCurrentPassword);
+  const findUser = await tutorModel.findOne({
+    _id: req.user.id,
+  });
+  if (!findUser) next(new appError('Current password is not correct', 400));
+  const isPasswordCorrect = await findUser.isValidPassword(
+    passwordDetails.currentPassword,
+    findUser.password
+  );
+
+  console.log(isPasswordCorrect)
+  if (isPasswordCorrect) passwordDetails.currentPassword = null;
+  findUser.password = passwordDetails.password;
+  findUser.confirmPassword = passwordDetails.confirmPassword;
+
+  await findUser.save();
+
+  res
+    .status(200)
+    .json({ result: 'success', message: 'password change complete' });
+};
+
 module.exports = {
   signUp,
   updateProfile,
@@ -203,4 +219,5 @@ module.exports = {
   sendEmail,
   resetPassword,
   forgetPassword,
+  changePassword,
 };

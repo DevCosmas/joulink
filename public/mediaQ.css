@@ -197,6 +197,13 @@
         width: 80%;
         margin: 0 auto;
     }
+    .send--us{
+        border:.5px solid #000;
+        width: 30%;
+        margin: 0 auto;
+        text-align: center;
+       
+    }
 }
 @media(max-width:34.1em){
     .footer-cover{

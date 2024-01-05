@@ -11,6 +11,7 @@ const multerStorage = multer.diskStorage({
     cb(null, 'public/img/users');
   },
   filename: (req, file, cb) => {
+    console.log(file);
     const ext = file.mimetype.split('/')[1];
     cb(null, `student-${Date.now()}.${ext}`);
   },
@@ -38,11 +39,11 @@ const studentForm = async (req, res, next) => {
     if (req.file) formData.photo = req.file.filename;
     const newStudent = await studentModel.create(formData);
     if (!newStudent) next(new appError('no  new student was created ', 400));
-    const url = `${req.protocol}://${req.get('host')}/confirmEmail/:${
+    const url = `${req.protocol}://${req.get('host')}/confirmEmail/${
       newStudent._id
     }`;
 
-    console.log(newStudent._id)
+    console.log(newStudent._id);
     await sendMail.sendWelcomeEmail(newStudent, url);
     const token = await jwtToken(newStudent._id);
     res.status(201).json({
@@ -74,7 +75,6 @@ const findStudentEmail = async (req, res, next) => {
       data: mappedSearch,
     });
   } catch (err) {
-    // console.e   rror('Error finding student email:', err);
     next(new appError('Internal server error', 500));
   }
 };

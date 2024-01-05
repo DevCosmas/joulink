@@ -14,8 +14,8 @@ tutorRouter.post('/login', tutorController.Login);
 tutorRouter.post('/sendEmail', auth.isAuthenticated, tutorController.sendEmail);
 tutorRouter.patch(
   '/updateProfile',
-  auth.isLoggedIn,
   auth.isAuthenticated,
+  studentController.uploadStudentPhoto,
   tutorController.updateProfile
 );
 tutorRouter.delete(
@@ -24,14 +24,13 @@ tutorRouter.delete(
   auth.isAuthenticated,
   tutorController.deleteAcct
 );
-tutorRouter.patch(
-  '/reset_password/:token',
-  tutorController.resetPassword
-);
-tutorRouter.post(
-  '/forget_password',
-  tutorController.forgetPassword
-);
+tutorRouter.patch('/reset_password/:token', tutorController.resetPassword);
+tutorRouter.post('/forget_password', tutorController.forgetPassword);
 tutorRouter.post('/logout', tutorController.logout);
+tutorRouter.post(
+  '/changePassword',
+  auth.isAuthenticated,
+  tutorController.changePassword
+);
 
 module.exports = tutorRouter;
